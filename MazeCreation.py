@@ -22,9 +22,13 @@ currentPosX = startx
 currentPosY = starty
 totalSteps = 0
 
-while (currentPosX != endX and currentPosY != endY):
+while (True):
     #do algorithm
+    if currentPosX == endX and currentPosY == endY:
+        break
+
     possibleMoves = []
+    possibleVisitedMoves = []
     visitedCells.append([currentPosX, currentPosY])
 
     for row in maze:
@@ -49,18 +53,42 @@ while (currentPosX != endX and currentPosY != endY):
         possibleMoves.append("up")
 
     if len(possibleMoves) == 0:
-        print("No possible moves")
-        break
+        if maze[currentPosX + 1][currentPosY] == 0:
+            possibleVisitedMoves.append("down")
+        if maze[currentPosX][currentPosY + 1] == 0:
+            possibleVisitedMoves.append("right")
+        if maze[currentPosX][currentPosY - 1] == 0:
+            possibleVisitedMoves.append("left")
+        if maze[currentPosX - 1][currentPosY] == 0:
+            possibleVisitedMoves.append("up")
+        if len(possibleVisitedMoves) == 0:
+            break
+        move = random.randint(0, len(possibleVisitedMoves) -1)
+        if possibleVisitedMoves[move] == "down":
+            currentPosX += 1
+        elif possibleVisitedMoves[move] == "right":
+            currentPosY += 1
+        elif possibleVisitedMoves[move] == "left":
+            currentPosY -= 1
+        elif possibleVisitedMoves[move] == "up":
+            currentPosX -= 1
+
     else:
         move = random.randint(0, len(possibleMoves) -1)
-    if possibleMoves[move] == "down":
-        currentPosX += 1
-    elif possibleMoves[move] == "right":
-        currentPosY += 1
-    elif possibleMoves[move] == "left":
-        currentPosY -= 1
-    elif possibleMoves[move] == "up":
-        currentPosX -= 1
+        if possibleMoves[move] == "down":
+            currentPosX += 1
+        elif possibleMoves[move] == "right":
+            currentPosY += 1
+        elif possibleMoves[move] == "left":
+            currentPosY -= 1
+        elif possibleMoves[move] == "up":
+            currentPosX -= 1
+
     totalSteps += 1
+
+print("Total Steps: ", totalSteps)
+print("Visited Cells: ", visitedCells)
+print("End Position: ", currentPosX, currentPosY)
+
     
 
