@@ -11,7 +11,9 @@ maze = [
     [1, 1, 1, 1, 1, 1, 0, 1],
 ]
 
-
+# solution improvement ideas
+# if there are only one possible visited cell then go there and replace previous cell with wall
+# if there are two possible visited cells then pick one but dont replace previous cell with wall
 
 visitedCells = []
 startx = 0
